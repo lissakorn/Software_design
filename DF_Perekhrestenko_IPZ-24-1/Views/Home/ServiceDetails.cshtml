@@ -1,0 +1,39 @@
+﻿@model DF_Perekhrestenko_IPZ_24_1.Models.service
+
+<h2>Аналітика послуги: @Model.Name</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="well">
+            <h4>Статистика</h4>
+            <p><strong>Ціна:</strong> @Model.Price.ToString("0") грн</p>
+
+            <p><strong>Кількість замовлень:</strong> @ViewBag.UsageCount</p>
+            <p>
+                <strong>Загальний прибуток:</strong>
+                <span class="text-success">
+                    @(((decimal)ViewBag.TotalRevenue).ToString("0")) грн
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<h3>Останні замовлення</h3>
+<table class="table table-striped">
+    <tr>
+        <th>Локація (Кімната)</th>
+        <th>ID замовлення</th>
+        <th>Дата замовлення</th>
+    </tr>
+    @foreach (var order in ViewBag.RecentOrders)
+    {
+        <tr>
+            <td>Кімната № @order.RoomNumber</td>
+            <td>#@order.Id</td>
+            <td>@order.OrderDate.ToString("dd.MM.yyyy HH:mm")</td>
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("Назад до прайсу", "ServicesList", null, new { @class = "btn btn-default" })

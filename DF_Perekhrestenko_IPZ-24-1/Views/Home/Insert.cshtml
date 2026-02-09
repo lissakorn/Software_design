@@ -1,0 +1,46 @@
+﻿@model DF_Perekhrestenko_IPZ_24_1.Models.client
+
+@{
+    ViewBag.Title = "Додати клієнта";
+}
+
+<h2>Додавання нового клієнта</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            <label>Прізвище:</label>
+            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <label>Ім'я:</label>
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <label>Телефон:</label>
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <label>Паспортні дані:</label>
+            @Html.EditorFor(model => model.Passport, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <br />
+            <input type="submit" value="Зберегти" class="btn btn-primary" />
+            @Html.ActionLink("Назад до списку", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

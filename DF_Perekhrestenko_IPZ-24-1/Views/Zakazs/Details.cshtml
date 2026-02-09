@@ -1,0 +1,50 @@
+﻿@model DF_Perekhrestenko_IPZ_24_1.Models.Zakaz
+
+@{
+    ViewBag.Title = "Деталі замовлення";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">Детальна інформація про замовлення №@Model.Id</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4 text-muted">№ Кімнати:</dt>
+                <dd class="col-sm-8"><strong>@Model.RoomNumber</strong></dd>
+
+                <dt class="col-sm-4 text-muted">Опис послуги:</dt>
+                <dd class="col-sm-8">@Model.Description</dd>
+
+                <dt class="col-sm-4 text-muted">Дата замовлення:</dt>
+                <dd class="col-sm-8">@Model.OrderDate</dd>
+
+                <dt class="col-sm-4 text-muted">Статус виконання:</dt>
+                <dd class="col-sm-8">
+                    @if (Model.IsDone)
+                    {
+                        <span class="badge bg-success">Виконано</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">В процесі</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-4 text-muted">Відповідальний:</dt>
+                <dd>
+                    @(Model.Staff != null ? Model.Staff.FullName : "Працівника не призначено")
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer bg-light">
+
+            @if (Session["UserRole"]?.ToString() == "HotelAdmin" || Session["UserRole"]?.ToString() == "Receptionist")
+            {
+                @Html.ActionLink("Редагувати", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary px-4 me-2" })
+            }
+            @Html.ActionLink("Назад до списку", "Index", null, new { @class = "btn btn-secondary px-4" })
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@using System.Linq
+@model IEnumerable<DF_Perekhrestenko_IPZ_24_1.Models.ClientHistory_Result>
+
+@{
+    ViewBag.Title = "Перевірка історії";
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary">Перевірка історії за паспортом</h2>
+    <hr />
+
+    @using (Html.BeginForm("MyHistory", "Home", FormMethod.Get, new { @class = "row g-3 mb-4" }))
+    {
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-text">Паспорт:</span>
+                <input type="text" name="passportData" class="form-control"
+                       placeholder="Введіть серію та номер (напр. АВ123456)"
+                       value="@ViewBag.CurrentPassport" />
+                <button type="submit" class="btn btn-primary">Перевірити</button>
+            </div>
+        </div>
+    }
+
+    @if (ViewBag.SearchPerformed == true)
+    {
+        if (Model != null && Model.Any())
+        {
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Клієнт</th>
+                                <th>Номер кімнати</th>
+                                <th>Заїзд</th>
+                                <th>Виїзд</th>
+                                <th>Статус</th>
+                                <th>Витрати</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.FullName</td>
+                                    <td><strong>@item.Number</strong></td>
+                                    <td>@item.CheckIn.ToShortDateString()</td>
+                                    <td>@item.CheckOut.ToShortDateString()</td>
+                                    <td>
+                                        <span class="badge @(item.Status == "Active" ? "bg-success" : "bg-secondary")">
+                                            @item.Status
+                                        </span>
+                                    </td>
+                                    <td>@(item.GeneralExpenses.HasValue ? item.GeneralExpenses.Value.ToString("0") + " грн" : "0 грн")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning shadow-sm" style="margin-top: 20px;">
+                За вказаним паспортом "<strong>@ViewBag.CurrentPassport</strong>" записів не знайдено.
+            </div>
+        }
+    }
+</div>

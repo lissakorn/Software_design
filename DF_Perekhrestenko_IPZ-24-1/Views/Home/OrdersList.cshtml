@@ -1,0 +1,36 @@
+﻿@model IEnumerable<DF_Perekhrestenko_IPZ_24_1.Models.providedService>
+
+@{
+    ViewBag.Title = "Замовлення послуг";
+}
+
+<h2>Список наданих послуг</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Код замовлення</th>
+            <th>Номер бронювання</th>
+            <th>Назва послуги</th>
+            <th>Керування</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.IdProvidedService</td>
+                <td>Бронювання № @item.booking.IdBooking</td>
+                <td>@item.service.Name</td>
+                <td>
+                    @Html.ActionLink("Edit", "OrderEdit", new { id = item.IdProvidedService }, new { @class = "btn btn-sm btn-info" })
+
+                    @Html.ActionLink("Delete", "OrderDelete", new { id = item.IdProvidedService }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+<a href="/Home/AddOrder" class="btn btn-success">Призначити нову послугу</a>

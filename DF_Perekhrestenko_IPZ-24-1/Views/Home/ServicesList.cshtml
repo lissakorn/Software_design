@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DF_Perekhrestenko_IPZ_24_1.Models.service>
+
+@{
+    ViewBag.Title = "Послуги";
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary mb-4">Список послуг готелю</h2>
+
+    <table class="table table-hover align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Код</th>
+                <th>Назва послуги</th>
+                <th>Вартість (грн)</th>
+                @if (Session["UserRole"]?.ToString() == "HotelAdmin" || Session["UserRole"]?.ToString() == "Receptionist")
+                {
+                    <th class="text-center">Управління</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in ViewBag.Services)
+            {
+                <tr>
+                    <td>@s.IdService</td>
+                    <td><strong>@s.Name</strong></td>
+                    <td>@s.Price.ToString("0")</td>
+
+                    @if (Session["UserRole"]?.ToString() == "HotelAdmin" || Session["UserRole"]?.ToString() == "Receptionist")
+                    {
+                        <td class="text-center">
+
+                            @Html.ActionLink("Деталі", "ServiceDetails", new { id = s.IdService }, new { @class = "btn btn-info btn-sm text-white me-1" })
+
+                            @if (Session["UserRole"]?.ToString() == "HotelAdmin")
+                            {
+                                @Html.ActionLink("Редагувати", "ServiceEdit", new { id = s.IdService }, new { @class = "btn btn-primary btn-sm me-1" })
+                                @Html.ActionLink("Видалити", "ServiceDelete", new { id = s.IdService }, new { @class = "btn btn-danger btn-sm" })
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Session["UserRole"]?.ToString() == "HotelAdmin")
+    {
+        <div class="mt-3">
+            @Html.ActionLink("Додати нову послугу", "ServiceInsert", null, new { @class = "btn btn-primary px-4" })
+        </div>
+    }
+</div>

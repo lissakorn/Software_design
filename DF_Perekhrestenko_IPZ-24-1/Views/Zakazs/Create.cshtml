@@ -1,0 +1,121 @@
+﻿@*@model DF_Perekhrestenko_IPZ_24_1.Models.Zakaz
+
+    @{
+        ViewBag.Title = "Create";
+    }
+
+    <h2>Create</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Zakaz</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RoomNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsDone, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IsDone)
+                        @Html.ValidationMessageFor(model => model.IsDone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffId, "StaffId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("StaffId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StaffId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+
+@model DF_Perekhrestenko_IPZ_24_1.Models.Zakaz
+
+@{
+    ViewBag.Title = "Створити замовлення";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white py-3">
+            <h4 class="mb-0 text-center">Нове замовлення сервісу</h4>
+        </div>
+        <div class="card-body p-4">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">№ Кімнати (тільки активні бронювання)</label>
+
+                        @Html.DropDownList("RoomNumber", null, "-- Оберіть кімнату --", htmlAttributes: new { @class = "form-select border-primary" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Оберіть послугу</label>
+        
+                        @Html.DropDownList("Description", null, "-- Оберіть послугу --", htmlAttributes: new { @class = "form-select border-primary" })
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Дата замовлення</label>
+                        @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        @Html.EditorFor(model => model.IsDone, new { htmlAttributes = new { @class = "form-check-input" } })
+                        <label class="form-check-label">Виконано</label>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <button type="submit" class="btn btn-primary px-5 btn-lg shadow">Зберегти замовлення</button>
+                        @Html.ActionLink("Назад", "Index", null, new { @class = "btn btn-outline-secondary ms-2" })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

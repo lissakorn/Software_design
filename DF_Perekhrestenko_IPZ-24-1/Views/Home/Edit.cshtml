@@ -1,0 +1,49 @@
+﻿@model DF_Perekhrestenko_IPZ_24_1.Models.client
+
+@{
+    ViewBag.Title = "Редагування клієнта";
+}
+
+<h2>Редагування даних клієнта</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.HiddenFor(model => model.IdClient)
+        @Html.HiddenFor(model => model.Regestration)
+
+        <div class="form-group">
+            <label>Прізвище:</label>
+            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <label>Ім'я:</label>
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <label>Телефон:</label>
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <label>Паспортні дані:</label>
+            @Html.EditorFor(model => model.Passport, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <br />
+            <input type="submit" value="Зберегти зміни" class="btn btn-success" />
+            @Html.ActionLink("Скасувати", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Готель "DF_Perekhrestenko"</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <style>
+        .nav-link {
+            font-weight: 500;
+        }
+
+        .admin-link {
+            color: #ffc107 !important;
+        }
+
+        .client-link {
+            color: #28a745 !important;
+        }
+
+        .ui-datepicker {
+            font-size: 14px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            @Html.ActionLink("DF_Hotel", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">@Html.ActionLink("Головна", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    @if (Session["UserRole"]?.ToString() == "HotelAdmin" || Session["UserRole"]?.ToString() == "Receptionist")
+                    {
+                        <li class="nav-item">@Html.ActionLink("Клієнти", "Clients", "Home", new { area = "" }, new { @class = "nav-link admin-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Усі замовлення", "Index", "Zakazs", new { area = "" }, new { @class = "nav-link admin-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Послуги", "ServicesList", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+
+                    @if (Session["UserRole"]?.ToString() == "Client")
+                    {
+                        <li class="nav-item">@Html.ActionLink("Забронювати номер", "FindFreeRooms", "Home", new { area = "" }, new { @class = "nav-link client-link" })</li>
+                    }
+
+                    @if (Session["UserRole"] != null)
+                    {
+                        <li class="nav-item">@Html.ActionLink("Пошук за паспортом", "MyHistory", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                </ul>
+
+                <ul class="navbar-nav">
+                    @if (Session["UserName"] != null)
+                    {
+                        <li class="nav-item d-flex align-items-center">
+                            <span class="nav-link text-light me-3">Вітаємо, <b>@Session["UserName"]</b>!</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-danger btn-sm" href="@Url.Action("Logout", "Account")">Вийти</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Увійти", "Login", "Account", new { area = "" }, new { @class = "nav-link border rounded-pill px-3" })
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content py-4">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - DF_Perekhrestenko_IPZ-24-1</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/jquery-ui-i18n.min.js"></script>
+
+    <script>
+        $(function () {
+            if ($.datepicker) {
+                $.datepicker.setDefaults($.datepicker.regional["uk"]);
+            }
+
+            $('input[type="date"]').each(function () {
+                $(this).attr('type', 'text').datepicker({
+                    dateFormat: 'dd.mm.yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    firstDay: 1 
+                });
+            });
+        });
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

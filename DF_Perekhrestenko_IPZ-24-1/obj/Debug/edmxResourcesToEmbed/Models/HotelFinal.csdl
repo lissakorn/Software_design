@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="HotelFinal" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="HotelFinalContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="StaffSet" EntityType="HotelFinal.Staff" />
+    <EntitySet Name="ZakazSet" EntityType="HotelFinal.Zakaz" />
+    <AssociationSet Name="StaffZakaz" Association="HotelFinal.StaffZakaz">
+      <End Role="Staff" EntitySet="StaffSet" />
+      <End Role="Zakaz" EntitySet="ZakazSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Position" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Zakaz" Relationship="HotelFinal.StaffZakaz" FromRole="Staff" ToRole="Zakaz" />
+  </EntityType>
+  <EntityType Name="Zakaz">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoomNumber" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" />
+    <Property Name="IsDone" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Staff" Relationship="HotelFinal.StaffZakaz" FromRole="Zakaz" ToRole="Staff" />
+    <Property Name="StaffId" Type="Int32" Nullable="true" />
+  </EntityType>
+  <Association Name="StaffZakaz">
+    <End Type="HotelFinal.Staff" Role="Staff" Multiplicity="0..1" />
+    <End Type="HotelFinal.Zakaz" Role="Zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Zakaz">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

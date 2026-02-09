@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="hotelModelStoreContainer" CdmEntityContainer="hotelEntities">
+    <EntitySetMapping Name="bookings">
+      <EntityTypeMapping TypeName="hotelModel.booking">
+        <MappingFragment StoreEntitySet="bookings">
+          <ScalarProperty Name="IdBooking" ColumnName="IdBooking" />
+          <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+          <ScalarProperty Name="IdRoom" ColumnName="IdRoom" />
+          <ScalarProperty Name="CheckIn" ColumnName="CheckIn" />
+          <ScalarProperty Name="CheckOut" ColumnName="CheckOut" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clients">
+      <EntityTypeMapping TypeName="hotelModel.client">
+        <MappingFragment StoreEntitySet="clients">
+          <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Passport" ColumnName="Passport" />
+          <ScalarProperty Name="Regestration" ColumnName="Regestration" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payments">
+      <EntityTypeMapping TypeName="hotelModel.payment">
+        <MappingFragment StoreEntitySet="payments">
+          <ScalarProperty Name="IdPayment" ColumnName="IdPayment" />
+          <ScalarProperty Name="IdBooking" ColumnName="IdBooking" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rooms">
+      <EntityTypeMapping TypeName="hotelModel.room">
+        <MappingFragment StoreEntitySet="room">
+          <ScalarProperty Name="IdRoom" ColumnName="IdRoom" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="services">
+      <EntityTypeMapping TypeName="hotelModel.service">
+        <MappingFragment StoreEntitySet="services">
+          <ScalarProperty Name="IdService" ColumnName="IdService" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="providedServices">
+      <EntityTypeMapping TypeName="hotelModel.providedService">
+        <MappingFragment StoreEntitySet="providedServices">
+          <ScalarProperty Name="IdProvidedService" ColumnName="IdProvidedService" />
+          <ScalarProperty Name="IdBooking" ColumnName="IdBooking" />
+          <ScalarProperty Name="IdService" ColumnName="IdService" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="hotelModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ClientHistory" FunctionName="hotelModel.Store.ClientHistory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hotelModel.ClientHistory_Result">
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="CheckIn" ColumnName="CheckIn" />
+          <ScalarProperty Name="CheckOut" ColumnName="CheckOut" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="GeneralExpenses" ColumnName="GeneralExpenses" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="FindFreeRoom" FunctionName="hotelModel.Store.FindFreeRoom">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="hotelModel.FindFreeRoom_Result">
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,34 @@
+﻿<div class="jumbotron mt-4 p-5 bg-light rounded shadow-sm">
+    <h1>Вітаємо, @Session["UserName"]!</h1>
+    <p class="lead">Це панель керування готелем DF_Perekhrestenko.</p>
+</div>
+
+@if (Session["UserRole"]?.ToString() != "Client")
+{
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card border-primary mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Кімнат у фонді</h5>
+                    <p class="display-4">@ViewBag.TotalRooms</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-success mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Активних бронювань</h5>
+                    <p class="display-4">@ViewBag.ActiveBookings</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-info mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Всього клієнтів</h5>
+                    <p class="display-4">@ViewBag.TotalClients</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}

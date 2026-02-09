@@ -1,0 +1,70 @@
+﻿@model DF_Perekhrestenko_IPZ_24_1.Models.ClientBookingViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white p-3">
+                    <h4 class="mb-0"><i class="fa fa-calendar-plus"></i> Новий клієнт та бронювання</h4>
+                </div>
+                <div class="card-body p-4">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <h5 class="text-primary border-bottom pb-2 mb-3">Інформація про клієнта</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Прізвище</label>
+                                @Html.EditorFor(m => m.Surname, new { htmlAttributes = new { @class = "form-control", placeholder = "Введіть прізвище" } })
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Ім'я</label>
+                                @Html.EditorFor(m => m.ClientName, new { htmlAttributes = new { @class = "form-control", placeholder = "Введіть ім'я" } })
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Телефон</label>
+                                @Html.EditorFor(m => m.ClientPhone, new { htmlAttributes = new { @class = "form-control", placeholder = "+380..." } })
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Паспорт</label>
+                                @Html.EditorFor(m => m.Passport, new { htmlAttributes = new { @class = "form-control", placeholder = "Введіть номер паспорту" } })
+                            </div>
+                        </div>
+                        <div class="form-group fw-bold">
+                            @Html.LabelFor(model => model.Email, "Електронна пошта", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Введіть емейл" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <h5 class="text-primary border-bottom pb-2 mb-3">Деталі бронювання</h5>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Виберіть номер</label>
+                            @Html.DropDownList("RoomId", null, "-- Оберіть вільну кімнату --", htmlAttributes: new { @class = "form-select border-primary" })
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Дата заїзду</label>
+                                @Html.TextBoxFor(m => m.CheckIn, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Дата виїзду</label>
+                                @Html.TextBoxFor(m => m.CheckOut, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                                <i class="fa fa-check-circle"></i> Зареєструвати
+                            </button>
+                            <a href="@Url.Action("Clients", "Home")" class="btn btn-light text-muted">Скасувати</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DF_Perekhrestenko_IPZ_24_1.Models.client>
+
+@{
+    ViewBag.Title = "Керування базою клієнтів";
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary mb-4">Керування базою клієнтів</h2>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Прізвище та ім'я</th>
+                        <th>Паспорт</th>
+                        <th>Телефон</th>
+                        <th>Email</th>
+                        <th>Дата реєстрації</th>
+                        @if (Session["UserRole"]?.ToString() == "HotelAdmin" || Session["UserRole"]?.ToString() == "Receptionist")
+                        {
+                            <th class="text-center">Управління</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Surname @item.Name</td>
+                            <td>@item.Passport</td>
+                            <td>@item.Phone</td>
+                            <td>@item.Email</td>
+                            <td>@item.Regestration.ToShortDateString()</td>
+
+                            <td class="text-center">
+                                @if (Session["UserRole"]?.ToString() == "HotelAdmin" || Session["UserRole"]?.ToString() == "Receptionist")
+                                {
+                                    @Html.ActionLink("Редагувати", "Edit", new { id = item.IdClient }, new { @class = "btn btn-primary btn-sm me-1" })
+                                    @Html.ActionLink("Деталі", "Details", new { id = item.IdClient }, new { @class = "btn btn-info btn-sm" })
+                                }
+
+                                @if (Session["UserRole"]?.ToString() == "HotelAdmin")
+                                {
+                                    @Html.ActionLink("Видалити", "Delete", new { id = item.IdClient }, new { @class = "btn btn-danger btn-sm" })
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@if (Session["UserRole"]?.ToString() == "HotelAdmin" || Session["UserRole"]?.ToString() == "Receptionist")
+{
+    <div class="mb-3 mt-3">
+        <a href="@Url.Action("CreateWithBooking", "Home")" class="btn btn-primary px-4 py-2 shadow-sm">
+            <i class="fa fa-plus-circle"></i> Додати нового клієнта 
+        </a>
+    </div>
+}
