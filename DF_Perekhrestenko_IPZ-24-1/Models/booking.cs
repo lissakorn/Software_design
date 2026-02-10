@@ -11,7 +11,8 @@ namespace DF_Perekhrestenko_IPZ_24_1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    // TODO: Issue #1 - Rename class to 'Booking' (PascalCase).
+    // Currently kept lowercase to match existing Database table names without breaking Entity Framework mapping.
     public partial class booking
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
