@@ -15,8 +15,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
 
         public ActionResult Index()
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
-
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             var now = DateTime.Now;
             var expiredBookings = db.bookings
                 .Where(b => b.Status == "Active" && b.CheckOut < now)
@@ -59,7 +58,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpGet]
         public ActionResult Insert()
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             return View();
         }
 
@@ -93,7 +92,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpGet]
         public ActionResult CreateWithBooking()
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
 
             var busyRoomIds = db.bookings
                 .Where(b => b.Status == "Active" && b.CheckOut >= DateTime.Now) 
@@ -109,7 +108,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateWithBooking(ClientBookingViewModel model)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
 
             if (ModelState.IsValid)
             {
@@ -185,7 +184,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             client c = db.clients.Find(id);
             if (c == null) return HttpNotFound();
             return View(c);
@@ -207,7 +206,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
 
         public ActionResult ServicesList()
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             var list = db.services.ToList();
             ViewBag.Services = list;
             return View();
@@ -215,7 +214,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
 
         public ActionResult ServiceDelete(int? id)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+            if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             service s = db.services.Find(id);
             if (s != null)
             {
@@ -228,14 +227,14 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpGet]
         public ActionResult ServiceInsert()
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+            if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             return View();
         }
 
         [HttpPost]
         public ActionResult ServiceInsert(service s)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+            if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             try
             {
                 db.services.Add(s);
@@ -251,7 +250,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpGet]
         public ActionResult ServiceEdit(int? id)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+            if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
 
             if (id == null)
             {
@@ -265,7 +264,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpPost]
         public ActionResult ServiceEdit(service s)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+            if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             if (ModelState.IsValid)
             {
                 db.Entry(s).State = System.Data.Entity.EntityState.Modified;
@@ -309,7 +308,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpGet]
         public ActionResult AddOrder()
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             ViewBag.IdBooking = new SelectList(db.bookings, "IdBooking", "IdBooking");
             ViewBag.IdService = new SelectList(db.services, "IdService", "Name");
             return View();
@@ -318,7 +317,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpPost]
         public ActionResult AddOrder(providedService ps)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             if (ModelState.IsValid)
             {
                 db.providedServices.Add(ps);
@@ -331,7 +330,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpGet]
         public ActionResult OrderEdit(int? id)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+            if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             var order = db.providedServices.Find(id);
             if (order == null) return HttpNotFound();
 
@@ -344,7 +343,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpPost]
         public ActionResult OrderEdit(providedService ps)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             if (ModelState.IsValid)
             {
                 db.Entry(ps).State = EntityState.Modified;
@@ -356,7 +355,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
 
         public ActionResult OrderDelete(int id)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+            if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             var order = db.providedServices.Find(id);
             if (order != null)
             {
@@ -370,7 +369,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpGet]
         public ActionResult FindFreeRooms()
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
 
             return View(new List<FindFreeRoom_Result>());
         }
@@ -378,8 +377,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpPost]
         public ActionResult FindFreeRooms(DateTime? start, DateTime? end, string roomType)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
-
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             if (start == null || end == null) return View(new List<FindFreeRoom_Result>());
 
             ViewBag.Start = start;
@@ -393,8 +391,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
      
         public ActionResult MyHistory(string passportData)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
- 
+            if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             bool hasSearchValue = !string.IsNullOrEmpty(passportData);
             ViewBag.SearchPerformed = hasSearchValue;
 
@@ -409,7 +406,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
 
         public ActionResult Details(int? id)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
+           if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
 
             var role = Session["UserRole"]?.ToString();
             if (role != "HotelAdmin" && role != "Receptionist") 
@@ -429,8 +426,7 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
         [HttpGet]
         public ActionResult BookRoom(string roomNum, DateTime? start, DateTime? end)
         {
-            if (Session["UserName"] == null) return RedirectToAction("Login", "Account");
-
+            if (!IsUserAuthorized()) return RedirectToAction("Login", "Account");
             var room = db.rooms.FirstOrDefault(r => r.Number.Trim() == roomNum.Trim());
 
             var model = new ClientBookingViewModel
@@ -489,6 +485,11 @@ namespace DF_Perekhrestenko_IPZ_24_1.Controllers
 
             ViewBag.RoomId = new SelectList(db.rooms, "IdRoom", "Number", model.RoomId);
             return View(model);
+        }
+        // Fix for Issue #2 (DRY Violation)
+        private bool IsUserAuthorized()
+        {
+        return Session["UserName"] != null;
         }
     }
 }
