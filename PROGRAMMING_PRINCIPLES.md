@@ -1,28 +1,28 @@
-# Принципи програмування в проєкті
+# Programming Principles in the Project
 
-У цьому проєкті реалізовано наступні принципи розробки програмного забезпечення:
+The following software development principles are implemented in this project:
 
-## 1. Separation of Concerns (Розділення відповідальності)
-Проєкт реалізовано на основі патерну **MVC (Model-View-Controller)**, що забезпечує чітке розмежування логіки, даних та інтерфейсу. Це дозволяє змінювати інтерфейс, не зачіпаючи бізнес-логіку, і навпаки.
-- **Models**: Класи `client.cs`, `booking.cs` відповідають тільки за дані.
-- **Views**: Папка `Views/` містить тільки HTML-розмітку для відображення.
-- **Controllers**: Клас `HomeController.cs` відповідає тільки за обробку запитів.
+## 1. Separation of Concerns
+The project is implemented based on the **MVC (Model-View-Controller)** pattern, which ensures a clear separation of logic, data, and interface. This allows changing the interface without affecting business logic, and vice versa.
+- **Models**: Classes `client.cs`, `booking.cs` are responsible only for data.
+- **Views**: The `Views/` folder contains only HTML markup for display.
+- **Controllers**: The `HomeController.cs` class is responsible only for processing requests.
 
-**Посилання на код:**
-- [Модель даних (Models/client.cs)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Models/client.cs#L7C1-L25)
-- [Модель даних (Models/booking.cs)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Models/booking.cs#L15-L37)
-- [Представлення (Views/Home/Index.cshtml)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Views/Home/Index.cshtml#L1-L34)
-- [Контролер (Controllers/HomeController.cs)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Controllers/HomeController.cs#L12)
-  
-## 2. DRY (Don't Repeat Yourself — Не повторюй себе)
-Щоб уникнути дублювання коду в інтерфейсі (наприклад, однакове меню та "шапка" сайту на кожній сторінці), використано спільний макет (Layout). Усі сторінки наслідують цей макет, тому код навігації написаний лише один раз.
+**Code References:**
+- [Data Model (Models/client.cs)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Models/client.cs#L7C1-L25)
+- [Data Model (Models/booking.cs)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Models/booking.cs#L15-L37)
+- [View (Views/Home/Index.cshtml)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Views/Home/Index.cshtml#L1-L34)
+- [Controller (Controllers/HomeController.cs)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Controllers/HomeController.cs#L12)
 
-**Посилання на код:**
-- [Головний макет (Views/Shared/_Layout.cshtml)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Views/Shared/_Layout.cshtml#L1)
+## 2. DRY (Don't Repeat Yourself)
+To avoid code duplication in the interface (e.g., identical menu and site header on every page), a shared layout (`_Layout.cshtml`) is used. All pages inherit this layout, so the navigation code is written only once.
 
-## 3. Single Responsibility Principle (Принцип єдиної відповідальності)
-Кожен клас моделі відповідає лише за одну сутність предметної області. Наприклад, клас `client` зберігає лише інформацію про клієнта і не містить логіки бронювання чи оплати. Логіка бронювання винесена в окрему сутність `booking` або спеціальні ViewModel.
+**Code References:**
+- [Main Layout (Views/Shared/_Layout.cshtml)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Views/Shared/_Layout.cshtml#L1)
 
-**Посилання на код:**
-- [Клас клієнта (Models/client.cs)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Models/client.cs#L7C1-L25)
-- [Клас бронювання (Models/booking.cs)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Models/booking.cs#L15-L37)
+## 3. Single Responsibility Principle
+Each model class corresponds to only one domain entity. For example, the `client` class stores only client information and does not contain booking or payment logic. Booking logic is moved to a separate `booking` entity or special ViewModels.
+
+**Code References:**
+- [Client Class (Models/client.cs)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Models/client.cs#L7C1-L25)
+- [Booking Class (Models/booking.cs)](https://github.com/lissakorn/Software_design/blob/main/DF_Perekhrestenko_IPZ-24-1/Models/booking.cs#L15-L37)
