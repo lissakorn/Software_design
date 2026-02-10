@@ -11,7 +11,8 @@ namespace DF_Perekhrestenko_IPZ_24_1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    // TODO: Issue #3 - Rename class 'Zakaz' to 'Order' to avoid transliteration.
+    // Currently keeping 'Zakaz' to maintain database compatibility until migration.
     public partial class Zakaz
     {
         public int Id { get; set; }
